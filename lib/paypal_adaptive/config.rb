@@ -43,7 +43,8 @@ module PaypalAdaptive
           "X-PAYPAL-RESPONSE-DATA-FORMAT" => "JSON"
         }
         
-        @headers["X-PAYPAL-SANDBOX-EMAIL-ADDRESS"] = config['sandbox_email'] unless pp_env == :production
+        @headers["X-PAYPAL-SANDBOX-EMAIL-ADDRESS"] = config['sandbox_email'] if config['sandbox_email']
+        @headers["X-PAYPAL-DEVICE-IPADDRESS"] = config['ip_address'] if config['ip_address']
 
         if config['ssl_cert_file'] && config['ssl_cert_file'].length > 0
           @ssl_cert_file = config['ssl_cert_file']
