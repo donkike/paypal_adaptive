@@ -68,6 +68,10 @@ module PaypalAdaptive
     def execute_payment(data)
       wrap_post(data, "/AdaptivePayments/ExecutePayment")
     end
+    
+    def create_account(data)
+      wrap_post(data, "/AdaptiveAccounts/CreateAccount")
+    end
 
     def wrap_post(data, path)
       raise NoDataError unless data

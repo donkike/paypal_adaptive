@@ -25,10 +25,10 @@ module PaypalAdaptive
       if config["retain_requests_for_test"] == true
         @retain_requests_for_test = true
       else
-        pp_env = config['environment'].to_sym
+        pp_env = config['environment'].to_sym        
         
+        @ssl_cert_path = nil
         @ssl_cert_file = nil
-        @ssl_cert_path = '/etc/ssl/certs'
         @paypal_base_url = PAYPAL_BASE_URL_MAPPING[pp_env]
         @api_base_url = API_BASE_URL_MAPPING[pp_env]
         
@@ -42,6 +42,8 @@ module PaypalAdaptive
           "X-PAYPAL-REQUEST-DATA-FORMAT" => "JSON",
           "X-PAYPAL-RESPONSE-DATA-FORMAT" => "JSON"
         }
+        
+        @headers["X-PAYPAL-SANDBOX-EMAIL-ADDRESS"] = config['sandbox_email'] unless pp_env == :production
 
         if config['ssl_cert_file'] && config['ssl_cert_file'].length > 0
           @ssl_cert_file = config['ssl_cert_file']
